@@ -23,22 +23,25 @@ for page_num in range(len(doc)):
 
 print(extracted_text)
 # --- 2. Send to Gemini for extraction ---
-# genai.configure(api_key="YOUR_GEMINI_API_KEY")
-# model = genai.GenerativeModel("gemini-pro")
+genai.configure(api_key="YOUR_GEMINI_API_KEY")
+model = genai.GenerativeModel("gemini-pro")
 
-# prompt = f"""
-# You are an information extraction assistant.
-# From the following text, extract ONLY:
-# - Party names
-# - Dates
-# - Amounts
-# - Addresses
+prompt = f"""
+You are an information extraction assistant.
+From the following info you are supposed to extract information and organize in a clean manner as shown in an example:
+Address: 123 Example Road
+Name: John Doe
+Account Number: 1234
+Here is the following information needed to be extracted
+- Party names
+- Dates
+- Amounts
+- Addresses
 
-# Return results in JSON.
 
-# Text:
-# {extracted_text}
-# """
+Text:
+{extracted_text}
+"""
 
-# response = model.generate_content(prompt)
-# print(response.text)
+response = model.generate_content(prompt)
+print(response.text)
